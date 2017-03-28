@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+    <head>
+        <title>HexColor with alpha channel to RGBA converter</title>
+        <style>
+            body {
+                position: relative;
+                font-family: sans-serif;
+                font-size: 16px;
+                margin: 0px;
+                padding: 20px;
+                overflow: hidden;
+                background: #fff;
+            }
+
+            footer{
+                position: absolute;
+                bottom: 5px; 
+                left: 5px;
+                text-decoration: none;
+                color:#111E07;
+                font-style: italic;
+                font-size: 12px;
+                opacity: 0.2;
+            }
+
+            #hexColor{
+                padding: 5px;
+                border-radius: 5px;
+                outline: 0;
+            }
+
+            #convert {
+                color: #111E07;
+                cursor: pointer;
+                text-align: center;
+                padding: 8px;
+                border-radius: 5px;
+                margin: 10px auto;
+                background: #80A067;
+            }
+
+            #convert:hover {
+                background: #45652B;
+            }
+
+        </style>
+        <script src="popup.js"></script>
+    </head>
+    <body>
+        <input id="hexColor" type="text" placeholder="Paste 8-digit #hex color"/>
+        <div id="convert">Convert to rgba</div>
+        <footer>https://github.com/kolodziejczakM</footer>
+    </body>
+</html>
