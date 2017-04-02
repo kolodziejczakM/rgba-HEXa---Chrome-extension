@@ -1,13 +1,13 @@
 
 (function(){
-
+   
     const UNIT_TESTS_ON = false;
 
     const HEX_COLOR = String(inputVal),
           HEX_VAL = HEX_COLOR.slice(1),
           RESULT_MODEL = {text: '', value: ''},
           INT8_MAX = 255,
-          HEX_VALID_REGXP = /^#([A-Fa-f0-9]{8}|[A-Fa-f0-9]{3})$/g,
+          HEX_VALID_REGXP = /^#([A-Fa-f0-9]{8})$/g,
           ERR_MSG = {
             format: 'Error: invalid format',
             emptyField: 'Error: lack of value'
@@ -31,16 +31,22 @@
     if(UNIT_TESTS_ON){
         const T = TEST_ENV;
         const ASSERTIONS = [
-            T.expect(JSON.parse(convertToRGBA(T.given[0].slice(1))).value).toEqual(T.expected[0]),
-            T.expect(JSON.parse(convertToRGBA(T.given[1].slice(1))).value).toEqual(T.expected[1])
+            T.expect(convertToRGBA(T.given[0].slice(1)).value).toEqual(T.expected[0]),
+            T.expect(convertToRGBA(T.given[1].slice(1)).value).toEqual(T.expected[1])
         ];
         console.info(MSG.testStatus, T.allPassed(ASSERTIONS));
     }
 
-    if (HEX_COLOR.length > 0) { 
-        return (HEX_COLOR.search(HEX_VALID_REGXP) !== -1) ? convertToRGBA(HEX_VAL) : errHandler(ERR_MSG.format);
-    }else {
-        return errHandler(ERR_MSG.emptyField);
+    if (isInputEmpty()){ 
+        return sendTextToPopup(errHandler(ERR_MSG.emptyField));
+    }else {       
+        if(isValidHex()){
+            const result = convertToRGBA(HEX_VAL);
+            copyResultToClipboard(result.value);
+            return sendTextToPopup(result.text);
+        }else {
+            return sendTextToPopup(errHandler(ERR_MSG.format));
+        }
     }
 
     function convertToRGBA(hexV){
@@ -51,19 +57,40 @@
             hexV.slice(0,2), 
             hexV.slice(2,4), 
             hexV.slice(4,6), 
-            hexV.slice(6)].map(rgbaPart =>{ return parseInt(rgbaPart,16); });
-            
-        alphaC =  (Number(alphaC) / INT8_MAX).toFixed(2);
+            hexV.slice(6)].map(rgbaPart =>{ return parseInt(rgbaPart, 16); });
         
-        result.value = `rgba(${redC},${greenC},${blueC},${alphaC})`;
-        result.text = MSG.copied;
-        return JSON.stringify(result);
+        alphaC =  (alphaC / INT8_MAX).toFixed(2);
+
+        [result.value, result.text] = [`rgba(${redC},${greenC},${blueC},${alphaC})`, MSG.copied];
+        return result;
     }
 
-    function errHandler(reason = ERR_MSG.emptyField, resObj = Object.assign({}, RESULT_MODEL)){
-        resObj.value = reason;
-        resObj.text = reason;
-        return JSON.stringify(resObj);
+    function isInputEmpty(){
+        return HEX_COLOR.length === 0;
+    }
+
+    function isValidHex(){
+        return HEX_COLOR.search(HEX_VALID_REGXP) !== -1;
+    }
+
+    function sendTextToPopup(srcText){
+        return srcText;
+    }
+
+    function copyResultToClipboard(text) {
+        const D = document,
+              BODY = D.getElementsByTagName('BODY')[0],
+              TEMP_COPY_SRC = D.createElement('textarea');
+              
+        TEMP_COPY_SRC.textContent = text; 
+        BODY.appendChild(TEMP_COPY_SRC);
+        TEMP_COPY_SRC.select();
+        D.execCommand('copy');
+        BODY.removeChild(TEMP_COPY_SRC);
+    }
+
+    function errHandler(reason = ERR_MSG.emptyField){
+        return reason;
     }
     
 })();

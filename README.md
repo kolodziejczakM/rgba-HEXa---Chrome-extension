@@ -1,8 +1,10 @@
 # rgba( #HEXa ) - lightweight Chrome extension
 ## This extension converts 8-digit HEX color (with alpha channel) to widely supported RGBA format.
 
-### Without conversion - Chrome 56
+### Without conversion - Chrome 57 (March/April 2017)
 <img src="https://s28.postimg.org/ris8wua25/Chrome56.png"/>
+
+## How it works
 
 ## Instalation
 1. Navigate to settings (three dots) -> More tools -> Extensions. 
@@ -16,6 +18,8 @@
 3. Enter 8-digits HEX value (with alpha channel) that you want to convert.
 4. Click on the 'Convert to rgba' button.
 5. You have **result on your clipboard** (or error message if you did something wrong).
+
+## Important
 
 ## License
 ### **MIT**

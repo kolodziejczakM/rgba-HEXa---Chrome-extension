@@ -3,7 +3,7 @@
     <head>
         <title>HexColor with alpha channel to RGBA converter</title>
         <style>
-            body {
+            #body-rgba-extension {
                 position: relative;
                 font-family: sans-serif;
                 font-size: 16px;
@@ -24,7 +24,7 @@
                 opacity: 0.2;
             }
 
-            #hexColor{
+            #hex-color{
                 padding: 5px;
                 border-radius: 5px;
                 outline: 0;
@@ -47,8 +47,8 @@
         </style>
         <script src="popup.js"></script>
     </head>
-    <body>
-        <input id="hexColor" type="text" placeholder="Paste 8-digit #hex color"/>
+    <body id="body-rgba-extension">
+        <input id="hex-color" type="text" placeholder="Paste 8-digit #hex color"/>
         <div id="convert">Convert to rgba</div>
         <footer>https://github.com/kolodziejczakM</footer>
     </body>
