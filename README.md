@@ -5,6 +5,7 @@
 <img src="https://s28.postimg.org/ris8wua25/Chrome56.png"/>
 
 ## How it works
+[![extension49494.gif](https://gifyu.com/images/extension49494.gif)](https://gifyu.com/image/SPMF)
 
 ## Instalation
 1. Navigate to settings (three dots) -> More tools -> Extensions. 

@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
             code: "var inputVal ='" + currentInputVal + "';",
             allFrames: true
         },(outcome) => {
-           chrome.tabs.executeScript({file: "./conversion.js", allFrames: true}, (result) => {
+           chrome.tabs.executeScript({file: "./conversion.js", allFrames: false}, (result) => {
                 INPUT_ELEMENT.value = result;
                 closePopupAfter(DELAY_TIME);
            });
